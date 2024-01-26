@@ -12,6 +12,8 @@ const marginBottom = 0.3 * playerSize; // Adjust as needed
 // Calculate the game area height
 const gameHeight = canvas.height - marginBottom;
 
+let gameStarted = false;
+
 // Variables to hold the position of the player
 let playerX = canvas.width / 2 - playerSize / 2;
 let playerY = canvas.height - playerSize - marginBottom;
@@ -55,6 +57,28 @@ function movePlayer(event) {
 
 // Update the game state every frame
 function update() {
+  if (!gameStarted) {
+    let text = "CLICK ON GAME TO START";
+    ctx.font = "3rem Pixelify Sans";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+  
+    // Measure text width and height
+    let metrics = ctx.measureText(text);
+    let textWidth = metrics.width;
+    let textHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+  
+    // Draw background rectangle
+    ctx.fillStyle = "black";
+    ctx.fillRect(canvas.width / 2 - textWidth / 2 - 10, canvas.height / 2 - textHeight / 2 - 10, textWidth + 20, textHeight + 20);
+  
+    // Draw text
+    ctx.fillStyle = "white";
+    ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+  
+    requestAnimationFrame(update);
+    return;
+  }
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -113,7 +137,7 @@ function update() {
 
   // Draw score
   ctx.fillStyle = "black";
-  ctx.font = "20px Arial";
+  ctx.font = "2rem Pixelify Sans";
   ctx.textAlign = "center";
   ctx.fillText("Score: " + score, canvas.width / 2, 30);
 
@@ -124,10 +148,14 @@ function update() {
 function updateScore() {
   ctx.clearRect(0, 0, canvas.width, 30);
   ctx.fillStyle = "black";
-  ctx.font = "20px Arial";
+  ctx.font = "2rem Pixelify Sans";
   ctx.textAlign = "center";
   ctx.fillText("Score: " + score, canvas.width / 2, 30);
 }
 
 // Start the game loop
 update();
+
+canvas.addEventListener('click', function() {
+  gameStarted = true;
+});
