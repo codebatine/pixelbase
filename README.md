@@ -6,8 +6,6 @@ PixelBase is a game for the love of 'cute pixel art'. This project serves as a w
 
 [Play pixelbase here](https://pixelba.se)
 
-## Screenshots
+## Screenshot :camera_flash:
 
-![pixelbase screenshot](./img/pixelbase-screenshot-1.webp)
-
-![pixelbase screenshot](./img/pixelbase-screenshot-2.webp)
+![pixelbase screenshot](./img/pixelbase-screenshot.jpg)
