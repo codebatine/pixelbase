@@ -1,13 +1,13 @@
 // Game area
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
 
 // Set the desired size for the player and apple
-let playerSize = 100; // Adjust as needed
-let appleSize = 60; // Adjust as needed
+let playerSize = 100;
+let appleSize = 60;
 
 // Calculate the margin from the bottom border
-const marginBottom = 0.3 * playerSize; // Adjust as needed
+const marginBottom = 0.3 * playerSize;
 
 // Calculate the game area height
 const gameHeight = canvas.height - marginBottom;
@@ -27,18 +27,18 @@ let score = 0;
 
 // Load the player image
 const playerImage = new Image();
-playerImage.src = "img/player.webp";
+playerImage.src = 'img/player.webp';
 
 // Load the apple image
 const appleImage = new Image();
-appleImage.src = "img/apple.webp";
+appleImage.src = 'img/apple.webp';
 
 // Load the golden apple image
 const goldenAppleImage = new Image();
-goldenAppleImage.src = "img/golden-apple.webp";
+goldenAppleImage.src = 'img/golden-apple.webp';
 
 // Event listener to move the player with cursor keys
-document.addEventListener("keydown", movePlayer);
+document.addEventListener('keydown', movePlayer);
 
 function movePlayer(event) {
   switch (event.keyCode) {
@@ -57,25 +57,34 @@ function movePlayer(event) {
 
 // Update the game state every frame
 function update() {
+  // Clear the canvas at the beginning of each frame
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   if (!gameStarted) {
-    let text = "CLICK ON GAME TO START";
-    ctx.font = "3rem Pixelify Sans";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-  
+    let text = 'CLICK ON GAME TO START';
+    ctx.font = '3rem Pixelify Sans';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
     // Measure text width and height
     let metrics = ctx.measureText(text);
     let textWidth = metrics.width;
-    let textHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
-  
+    let textHeight =
+      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
     // Draw background rectangle
-    ctx.fillStyle = "black";
-    ctx.fillRect(canvas.width / 2 - textWidth / 2 - 10, canvas.height / 2 - textHeight / 2 - 10, textWidth + 20, textHeight + 20);
-  
+    ctx.fillStyle = 'black';
+    ctx.fillRect(
+      canvas.width / 2 - textWidth / 2 - 10,
+      canvas.height / 2 - textHeight / 2 - 10,
+      textWidth + 20,
+      textHeight + 20,
+    );
+
     // Draw text
-    ctx.fillStyle = "white";
+    ctx.fillStyle = 'white';
     ctx.fillText(text, canvas.width / 2, canvas.height / 2);
-  
+
     requestAnimationFrame(update);
     return;
   }
@@ -90,7 +99,7 @@ function update() {
     const appleX = Math.random() * (canvas.width - appleSize);
     const appleY = Math.random() < 0.01 ? 0 : gameHeight - appleSize;
 
-    // Determine if the apple is golden (adjust the probability rate as desired)
+    // Determine if the apple is golden
     const isGolden = Math.random() < 0.15;
 
     // Use the same appleSpeed calculation for both red and golden apples
@@ -136,10 +145,10 @@ function update() {
   });
 
   // Draw score
-  ctx.fillStyle = "black";
-  ctx.font = "2rem Pixelify Sans";
-  ctx.textAlign = "center";
-  ctx.fillText("Score: " + score, canvas.width / 2, 30);
+  ctx.fillStyle = 'black';
+  ctx.font = '2rem Pixelify Sans';
+  ctx.textAlign = 'center';
+  ctx.fillText('Score: ' + score, canvas.width / 2, 30);
 
   // Update game state recursively
   requestAnimationFrame(update);
@@ -147,15 +156,15 @@ function update() {
 
 function updateScore() {
   ctx.clearRect(0, 0, canvas.width, 30);
-  ctx.fillStyle = "black";
-  ctx.font = "2rem Pixelify Sans";
-  ctx.textAlign = "center";
-  ctx.fillText("Score: " + score, canvas.width / 2, 30);
+  ctx.fillStyle = 'black';
+  ctx.font = '2rem Pixelify Sans';
+  ctx.textAlign = 'center';
+  ctx.fillText('Score: ' + score, canvas.width / 2, 30);
 }
 
 // Start the game loop
 update();
 
-canvas.addEventListener('click', function() {
+canvas.addEventListener('click', function () {
   gameStarted = true;
 });

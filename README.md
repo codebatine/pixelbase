@@ -1,6 +1,6 @@
 # pixelbase
 
-PixelBase is a game for the love of 'cute pixel art'. This project serves as a work-and-practice mix for JavaScript, SASS, CSS, HMTL.
+PixelBase is a game for the love of 'cute pixel art'. This project serves as a work-and-practice mix for JavaScript, CSS, HMTL.
 
 ## Link to game
 
