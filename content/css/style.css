@@ -1,14 +1,81 @@
-@import "_reset.scss";
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin-block-end: 0;
+}
+
+ul[role=list],
+ol[role=list] {
+  list-style: none;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+  line-height: 1.1;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+:target {
+  scroll-margin-block: 5ex;
+}
 
 canvas {
   border: 6px solid #fff;
   border-radius: 7px;
-  background: url('../img/bg.webp') no-repeat bottom / cover;
+  background: url("../img/bg.webp") no-repeat bottom/cover;
 }
 
-
 body {
-  font: 1rem/1 'Ubuntu Mono', 'Pixelify Sans', sans-serif;
+  font: 1rem/1 "Ubuntu Mono", "Pixelify Sans", sans-serif;
   background: #70EAFE center/cover fixed;
   display: flex;
   overflow-x: hidden;
@@ -25,7 +92,7 @@ header {
 }
 
 h1 {
-  font: 3rem 'Pixelify Sans', 'sans-serif';
+  font: 3rem "Pixelify Sans", "sans-serif";
   margin: 0;
   text-align: center;
 }
@@ -47,8 +114,8 @@ img {
   text-align: center;
 }
 
-.page1> p {
-  font: 4.5rem 'Ubuntu Mono', sans-serif;
+.page1 > p {
+  font: 4.5rem "Ubuntu Mono", sans-serif;
   color: #ffffff;
   width: 30rem;
   margin: 0;
@@ -74,7 +141,7 @@ img {
 .page2 figure {
   width: 100%;
   margin-right: 4rem;
-  background: url('/img/apple-tree.webp') center top;
+  background: url("/img/apple-tree.webp") center top;
 }
 
 .page2 section {
@@ -94,7 +161,7 @@ img {
   line-height: 1.5;
 }
 
-.page2 section>img {
+.page2 section > img {
   width: 60%;
   margin-top: 2rem;
 }
@@ -111,7 +178,7 @@ footer {
 
 footer p {
   width: 100%;
-  font: 200 0.7rem 'Ubuntu Mono', 'sans-serif';
+  font: 200 0.7rem "Ubuntu Mono", "sans-serif";
   padding: 1rem;
   margin: 0;
 }
@@ -126,21 +193,17 @@ footer a:hover {
 }
 
 @media screen and (max-width: 1000px) {
-
   #gameCanvas {
     display: none;
   }
-
   .header {
     justify-content: center;
     height: 100px;
   }
-
   .page1 p {
-      font-size: 3.5rem;
-      max-width: 22rem;
+    font-size: 3.5rem;
+    max-width: 22rem;
   }
-
   .page2 {
     width: 100%;
     height: auto;
@@ -148,11 +211,9 @@ footer a:hover {
     display: block;
     flex-direction: column;
   }
-
   .page2 figure {
     display: none;
   }
-
   .page2 section {
     width: 100%;
     text-align: justify;
@@ -161,36 +222,28 @@ footer a:hover {
     padding: 0rem 0rem 3rem 3rem;
     background-color: #CB70FE;
   }
-
   .page2 h2 {
     text-align: center;
     margin-bottom: 1rem;
   }
-
   .page2 p {
     width: 80%;
     order: 1;
     margin: auto;
     padding-bottom: 2rem;
   }
-
-  .page2 section>img {
+  .page2 section > img {
     width: 70%;
     margin: auto;
     order: 2;
   }
-
   .page2 section img {
     max-width: 100%;
     height: auto;
   }
 }
-
 @media screen and (min-width: 1001px) {
-
   .page1 p {
     display: none;
   }
-
-
 }

@@ -23,7 +23,6 @@ let apples = [];
 
 // Variables for the score, high score
 let score = 0;
-// let highScore = 0;
 
 // Load the player image
 const playerImage = new Image();
@@ -36,6 +35,22 @@ appleImage.src = 'img/apple.webp';
 // Load the golden apple image
 const goldenAppleImage = new Image();
 goldenAppleImage.src = 'img/golden-apple.webp';
+
+// Load the audio files
+const bgMusic = [
+  new Audio('./audio/sanjin-i-sma-bitar-5.mp3'),
+  new Audio('./audio/sanjin-i-sma-bitar-7.mp3'),
+];
+const redAppleSound = new Audio('./audio/red-apple-sound.mp3');
+const goldenAppleSound = new Audio('./audio/golden-apple-sound.mp3');
+const missedGoldenAppleSound = new Audio('./audio/miss-golden-apple.mp3');
+
+// Function to start playing background music randomly
+function playBgMusic() {
+  const track = bgMusic[Math.floor(Math.random() * bgMusic.length)];
+  track.loop = true;
+  track.play();
+}
 
 // Event listener to move the player with cursor keys
 document.addEventListener('keydown', movePlayer);
@@ -131,6 +146,13 @@ function update() {
       // Remove the caught apple
       const index = apples.indexOf(apple);
       apples.splice(index, 1);
+
+      // Play the corresponding sound effect when an apple is caught
+      if (apple.isGolden) {
+        goldenAppleSound.play();
+      } else {
+        redAppleSound.play();
+      }
     }
 
     // Check if apple reached the bottom
@@ -141,6 +163,11 @@ function update() {
       // Remove the fallen apple
       const index = apples.indexOf(apple);
       apples.splice(index, 1);
+
+      // Play the corresponding sound effect when a golden apple is missed
+      if (apple.isGolden) {
+        missedGoldenAppleSound.play();
+      }
     }
   });
 
@@ -165,6 +192,8 @@ function updateScore() {
 // Start the game loop
 update();
 
+// Start the background music when the game starts
 canvas.addEventListener('click', function () {
   gameStarted = true;
+  playBgMusic();
 });
