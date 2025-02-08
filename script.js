@@ -45,6 +45,12 @@ const redAppleSound = new Audio('./audio/red-apple-sound.mp3');
 const goldenAppleSound = new Audio('./audio/golden-apple-sound.mp3');
 const missedGoldenAppleSound = new Audio('./audio/miss-golden-apple.mp3');
 
+// Set the volume for the audio files
+bgMusic.forEach((track) => (track.volume = 0.3)); // Set background music volume to 50%
+redAppleSound.volume = 0.3; // Set red apple sound volume to 50%
+goldenAppleSound.volume = 0.3; // Set golden apple sound volume to 50%
+missedGoldenAppleSound.volume = 0.3; // Set missed golden apple sound volume to 50%
+
 // Function to start playing background music randomly
 function playBgMusic() {
   const track = bgMusic[Math.floor(Math.random() * bgMusic.length)];
