@@ -13,6 +13,7 @@ const marginBottom = 0.3 * playerSize;
 const gameHeight = canvas.height - marginBottom;
 
 let gameStarted = false;
+let gamePaused = false;
 
 // Variables to hold the position of the player
 let playerX = canvas.width / 2 - playerSize / 2;
@@ -46,16 +47,32 @@ const goldenAppleSound = new Audio('./audio/golden-apple-sound.mp3');
 const missedGoldenAppleSound = new Audio('./audio/miss-golden-apple.mp3');
 
 // Set the volume for the audio files
-bgMusic.forEach((track) => (track.volume = 0.3)); // Set background music volume to 50%
-redAppleSound.volume = 0.3; // Set red apple sound volume to 50%
-goldenAppleSound.volume = 0.3; // Set golden apple sound volume to 50%
-missedGoldenAppleSound.volume = 0.3; // Set missed golden apple sound volume to 50%
+bgMusic.forEach((track) => (track.volume = 0.2));
+redAppleSound.volume = 0.2;
+goldenAppleSound.volume = 0.2;
+missedGoldenAppleSound.volume = 0.2;
+
+let currentTrack;
 
 // Function to start playing background music randomly
 function playBgMusic() {
-  const track = bgMusic[Math.floor(Math.random() * bgMusic.length)];
-  track.loop = true;
-  track.play();
+  currentTrack = bgMusic[Math.floor(Math.random() * bgMusic.length)];
+  currentTrack.loop = true;
+  currentTrack.play();
+}
+
+// Function to pause the background music
+function pauseBgMusic() {
+  if (currentTrack) {
+    currentTrack.pause();
+  }
+}
+
+// Function to resume the background music
+function resumeBgMusic() {
+  if (currentTrack) {
+    currentTrack.play();
+  }
 }
 
 // Event listener to move the player with cursor keys
@@ -109,6 +126,36 @@ function update() {
     requestAnimationFrame(update);
     return;
   }
+
+  if (gamePaused) {
+    let text = 'GAME PAUSED';
+    ctx.font = '3rem Pixelify Sans';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Measure text width and height
+    let metrics = ctx.measureText(text);
+    let textWidth = metrics.width;
+    let textHeight =
+      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
+    // Draw background rectangle
+    ctx.fillStyle = 'black';
+    ctx.fillRect(
+      canvas.width / 2 - textWidth / 2 - 10,
+      canvas.height / 2 - textHeight / 2 - 10,
+      textWidth + 20,
+      textHeight + 20,
+    );
+
+    // Draw text
+    ctx.fillStyle = 'white';
+    ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+
+    requestAnimationFrame(update);
+    return;
+  }
+
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -198,8 +245,17 @@ function updateScore() {
 // Start the game loop
 update();
 
-// Start the background music when the game starts
+// Start or pause the game when the game area is clicked
 canvas.addEventListener('click', function () {
-  gameStarted = true;
-  playBgMusic();
+  if (!gameStarted) {
+    gameStarted = true;
+    playBgMusic();
+  } else {
+    gamePaused = !gamePaused;
+    if (gamePaused) {
+      pauseBgMusic();
+    } else {
+      resumeBgMusic();
+    }
+  }
 });
